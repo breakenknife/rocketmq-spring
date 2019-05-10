@@ -97,6 +97,8 @@ public class ListenerContainerConfiguration implements ApplicationContextAware, 
             DefaultRocketMQListenerContainer.class);
         if (!container.isRunning()) {
             try {
+            	//默认启动时挂起消费,由其它地方唤醒
+            	container.getConsumer().suspend();
                 container.start();
             } catch (Exception e) {
                 log.error("Started container failed. {}", container, e);
